@@ -1,16 +1,14 @@
 import sys, re, os
-import getch
 
 pattern = re.compile("([s|S]\d+)?([e|E])?\d+$")
-print ("If you want to change your files:")
-print ("y => yes, n => no")
+print ("If you want to change your file says yes (y) or no (n): ")
 for arg in sys.argv[1:]:
     toRename = arg
     toSave = ""
     if arg.find('[') != -1:
         delete = arg.find(']')
         arg = arg[delete+2:]
-    arg = arg.lower().title().split('.')
+    arg = arg.lower().title().replace('.', ' ').split(' ')
     for string in arg:
         match = pattern.match(string)
         if match:
@@ -19,12 +17,12 @@ for arg in sys.argv[1:]:
             toSave += string
             toSave += "." + arg[-1].lower()
             print (toSave)
-            gets()
             break
         toSave += string
         toSave += ' '
-    char = getch.getche()
+    char = input("== ")
     if (char == 'y' or char == 'Y'):
         os.rename(toRename, toSave)
+        print ("File is changed")
     if (char == 'n' or char == 'N'):
         print ("File is not changed")
