@@ -1,0 +1,2 @@
+# TinyScript
+Personal script
