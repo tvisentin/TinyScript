@@ -9,15 +9,18 @@ for arg in sys.argv[1:]:
     if arg[0] == '[':
         delete = arg.find(']')
         arg = arg[delete+2:]
+    elif arg[0] == '(':
+        delete = arg.find(')')
+        arg = arg[delete+2:]
     if arg.find('/'):
         delete = arg.rfind('/')
         arg = arg[delete+1:]
-    arg = arg.lower().title().replace('.', ' ').split(' ')
+    arg = arg.lower().title().replace('.', ' ').replace('_', ' ').split(' ')
     for string in arg:
         match = pattern.match(string)
         if string.isdigit() and int(string) > 1900 and int(string) < 2100:
             continue
-        elif string == "-" or string == "Neatsubs":
+        elif string == "-" or string == "Neatsubs" or string == "Definitelynotme" or string == "Godotaku":
             continue # Add more subteam here
         elif match:
             toSave += "- "
