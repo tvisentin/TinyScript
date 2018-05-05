@@ -8,13 +8,16 @@ for arg in sys.argv[1:]:
     if arg.find('[') != -1:
         delete = arg.find(']')
         arg = arg[delete+2:]
+    if arg.find('/'):
+        delete = arg.rfind('/')
+        arg = arg[delete+1:]
     arg = arg.lower().title().replace('.', ' ').split(' ')
     for string in arg:
         match = pattern.match(string)
         if string.isdigit() and int(string) > 1900 and int(string) < 2100:
             continue
-        elif string == "Neatsubs" or string == "-":
-            continue
+        elif string == "-" or string == "Neatsubs":
+            continue # Add more subteam here
         elif match:
             toSave += "- "
             string.upper()
@@ -29,5 +32,5 @@ for arg in sys.argv[1:]:
     if (char == 'y' or char == 'Y'):
         os.rename(toRename, toSave)
         print ("File is changed")
-    if (char == 'n' or char == 'N'):
+    else:
         print ("File is not changed")
