@@ -11,15 +11,20 @@ for arg in sys.argv[1:]:
     arg = arg.lower().title().replace('.', ' ').split(' ')
     for string in arg:
         match = pattern.match(string)
-        if match:
+        if string.isdigit() and int(string) > 1900 and int(string) < 2100:
+            continue
+        elif string == "Neatsubs" or string == "-":
+            continue
+        elif match:
             toSave += "- "
             string.upper()
             toSave += string
             toSave += "." + arg[-1].lower()
             print (toSave)
             break
-        toSave += string
-        toSave += ' '
+        else:
+            toSave += string
+            toSave += ' '
     char = input("== ")
     if (char == 'y' or char == 'Y'):
         os.rename(toRename, toSave)
