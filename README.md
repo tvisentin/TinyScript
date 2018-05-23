@@ -6,8 +6,22 @@ This script should rename your series to a better form:<br />
 
 ## How it works ?
 
-`git clone https://github.com/tvisentin/renameTitle.git ~/Documents/renameTitle`
-`$> alias rename='python3 ~/Documents/renameTitle/renameTitle.py'`<br />
+`git clone https://github.com/tvisentin/renameTitle.git ~/your/path/renameTitle`<br />
+`$> alias rename='python3 ~/your/path/renameTitle/renameTitle.py'`<br />
+
+Go to `renameTitle.py` and put one or more path to store your files in place of the `pathToMoveX` variable.<br />
+If you don't want to change your path, set the `pathToMove` to empty:<br />
+`pathToMove = []`<br />
+You can also add more ignore words when you set `ignore` variable.<br />
+
 Then, you can go to the folder or stay where you here and type the path.<br />
 `$> rename *`<br />
-After that, you have to say `y` for valid each files or `n` to discard changes.
+After that, you have to say `y` for valid each files, `Y` for all files or `n`/ `N` to discard changes.<br />
+And you can move files changed when you press the number corresponding to the path.<br />
+`Where do you want to move your files ?`<br />
+`1 -> /First/Path`<br />
+`2 -> /Second/Path`<br />
+`3 -> etc.`<br />
+`Type the number you choose.`<br />
+`$> 1`<br />
+`Files are moved ! :)`<br />

@@ -1,10 +1,15 @@
-import sys, re, os
+import sys, re, os, shutil
 
+pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
+ignore = ["Neatsubs", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun"] # Add more subteam here
+extension = ["mp4", "mkv", "avi"]
+yesAll = False
+noAll = False
+new = []
+prev = []
 pattern = re.compile("([s|S]\d+)?([e|E])?\d+$")
-yesAll = 'n'
-print ("If you want to change your file says yes (y) or no (n): ")
 for arg in sys.argv[1:]:
-    toRename = arg
+    prev.append(arg)
     toSave = ""
     if arg[0] == '[':
         delete = arg.find(']')
@@ -15,31 +20,68 @@ for arg in sys.argv[1:]:
     if arg.find('/'):
         delete = arg.rfind('/')
         arg = arg[delete+1:]
-    arg = arg.lower().title().replace('.', ' ').replace('_', ' ').split(' ')
-    for string in arg:
-        match = pattern.match(string)
-        if string.isdigit() and int(string) > 1900 and int(string) < 2100:
-            continue
-        elif string == "-" or string == "Neatsubs" or string == "Definitelynotme" or string == "Godotaku":
-            continue # Add more subteam here
-        elif match:
-            toSave += "- "
-            string.upper()
-            toSave += string
-            toSave += "." + arg[-1].lower()
-            print (toSave)
-            break
-        else:
-            toSave += string
-            toSave += ' '
-    if (yesAll != 'Y'):
-        char = input("== ")
-    if (char == 'y'):
-        os.rename(toRename, toSave)
-        print ("File is changed")
-    elif (char == 'Y'):
-        yesAll = 'Y'
-        os.rename(toRename, toSave)
-        print ("File is changed")
+    ex = arg.rfind(".")
+    if arg[ex + 1:] not in extension:
+        prev.pop()
+        continue
     else:
-        print ("File is not changed")
+        arg = list(filter(None, arg.lower().title().replace('.', ' ').replace('_', ' ').replace('-', ' ').split(' ')))
+        for string in arg:
+            match = pattern.match(string)
+            if (string.isdigit() and int(string) > 1900 and int(string) < 2100) or (string in ignore):
+                continue
+            elif arg[0] == "The" and string == "100" and string == arg[1]: # Special case for The 100
+                toSave += string + ' '
+            elif match and string != arg[0]:
+                string.upper()
+                toSave += "- " + string + "." + arg[-1].lower()
+                break
+            else:
+                toSave += string + ' '
+        new.append(toSave)
+
+if not new:
+    print ("Nothing to change.")
+    exit(1)
+if len(new) > 1:
+    print("----- All files -----")
+    for string in new:
+        print (string)
+    print("----- --------- -----")
+print ("If you want to change type [y]/[n]/[Y] (Y/N will change every file): ")
+i = 0
+while i < len(new):
+    print ("Prev: " + (prev[i]))
+    print ("New : " + (new[i]))
+    if yesAll != True and noAll != True:
+        char = input("$> ")
+    if char == 'Y':
+        yesAll = True
+        os.rename(prev[i], new[i])
+        print ("Files are changed")
+    elif char == 'y':
+        os.rename(prev[i], new[i])
+        if yesAll != True:
+            print ("File is changed")
+    elif char == 'N':
+        noAll = True
+        print ("Files aren't changed")
+        exit(1)
+    else:
+        print ("File isn't changed")
+    i += 1
+
+if len(pathToMove) == 0:
+    print ("This is the end ! :)")
+    exit(1)
+print ("Where do you want to move your files ?")
+for idx, folder in enumerate(pathToMove, start=1):
+    print (str(idx) + " -> " + folder)
+print ("Take the name corresponding to the right folder.")
+idx = input("$> ")
+if idx.isdigit() and int(idx) <= int(len(pathToMove)) and int(idx) > 0:
+    for toMove in new:
+        shutil.move(toMove, pathToMove[int(idx) - 1] + toMove)
+    print("Files are moved ! :)")
+else:
+    print("Files remain ! :)")
