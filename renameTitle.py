@@ -1,4 +1,5 @@
 import sys, re, os, shutil
+from pathlib import Path
 
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
 ignore = ["Neatsubs", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun"] # Add more subteam here
@@ -81,7 +82,9 @@ print ("Take the name corresponding to the right folder.")
 idx = input("$> ")
 if idx.isdigit() and int(idx) <= int(len(pathToMove)) and int(idx) > 0:
     for toMove in new:
-        shutil.move(toMove, pathToMove[int(idx) - 1] + toMove)
+        myFile = Path(toMove)
+        if myFile.is_file():
+            shutil.move(toMove, pathToMove[int(idx) - 1] + toMove)
     print("Files are moved ! :)")
 else:
     print("Files remain ! :)")
