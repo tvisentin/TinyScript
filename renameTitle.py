@@ -76,15 +76,22 @@ if len(pathToMove) == 0:
     print ("This is the end ! :)")
     exit(1)
 print ("Where do you want to move your files ?")
+print ("0 -> Don't move")
 for idx, folder in enumerate(pathToMove, start=1):
     print (str(idx) + " -> " + folder)
-print ("Take the name corresponding to the right folder.")
+print ("Take the number corresponding to the right folder.")
 idx = input("$> ")
 if idx.isdigit() and int(idx) <= int(len(pathToMove)) and int(idx) > 0:
     for toMove in new:
         myFile = Path(toMove)
         if myFile.is_file():
             shutil.move(toMove, pathToMove[int(idx) - 1] + toMove)
-    print("Files are moved ! :)")
+    if len(new) == 1:
+        print ("File is moved ! :)")
+    else:
+        print ("Files are moved ! :)")
 else:
-    print("Files remain ! :)")
+    if len(new) == 1:
+        print ("File remain ! :)")
+    else:
+        print ("Files remain ! :)")
