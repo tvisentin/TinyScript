@@ -8,7 +8,7 @@ yesAll = False
 noAll = False
 new = []
 prev = []
-pattern = re.compile("([s|S]\d+)?([e|E])?\d+$")
+pattern = re.compile("([s|S]\d+)?([e|E]|Ep)?\d+$")
 for arg in sys.argv[1:]:
     prev.append(arg)
     toSave = ""
@@ -69,10 +69,12 @@ while i < len(new):
         print ("Files aren't changed")
         exit(1)
     else:
+        new.pop()
+        prev.pop()
         print ("File isn't changed")
     i += 1
 
-if len(pathToMove) == 0:
+if len(pathToMove) == 0 or len(new) == 0:
     print ("This is the end ! :)")
     exit(1)
 print ("Where do you want to move your files ?")
