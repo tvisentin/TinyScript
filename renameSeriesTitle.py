@@ -2,7 +2,7 @@ import sys, re, os, shutil
 from pathlib import Path
 
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
-ignore = ["Neatsubs", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels"] # Add more subteam here
+ignore = ["Neatsubs", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure"] # Add more subteam here
 extension = ["mp4", "mkv", "avi"]
 yesAll = False
 noAll = False

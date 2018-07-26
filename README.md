@@ -1,4 +1,4 @@
-# renameTitle.py
+# renameSeriesTitle.py
 This script should rename your series to a better form:<br />
 `"[No.team].the.handmaids.tales.2017.S01E01.yzx.avi" => "The Handmaids Tales - S01E01.avi"`<br />
 `"[NO.TEAM].THE.HANDMAIDS.TALES.E01.avi" => "The Handmaids Tales - E01.avi"`<br />
@@ -6,10 +6,10 @@ This script should rename your series to a better form:<br />
 
 ## How it works ?
 
-`git clone https://github.com/tvisentin/renameTitle.git ~/your/path/renameTitle`<br />
-`$> alias rename='python3 ~/your/path/renameTitle/renameTitle.py'`<br />
+`git clone https://github.com/tvisentin/renameSeriesTitle.git ~/your/path/renameSeriesTitle`<br />
+`$> alias rename='python3 ~/your/path/renameSeriesTitle/renameSeriesTitle.py'`<br />
 
-Go to `renameTitle.py` and put one or more path to store your files in place of the `pathToMoveX` variable.<br />
+Go to `renameSeriesTitle.py` and put one or more path to store your files in place of the `pathToMoveX` variable.<br />
 If you don't want to change your path, set the `pathToMove` to empty:<br />
 `pathToMove = []`<br />
 You can also add more ignore words when you set `ignore` variable.<br />
