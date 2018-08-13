@@ -13,6 +13,7 @@ Go to `renameSeriesTitle.py` and put one or more path to store your files in pla
 If you don't want to change your path, set the `pathToMove` to empty:<br />
 `pathToMove = []`<br />
 You can also add more ignore words when you set `ignore` variable.<br />
+Add to `toLower` words where you don't want capital letters at the beginning.<br />
 
 Then, you can go to the folder or stay where you here and type the path.<br />
 `$> rename *`<br />

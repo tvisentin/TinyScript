@@ -2,8 +2,9 @@ import sys, re, os, shutil
 from pathlib import Path
 
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
-ignore = ["Neatsubs", "Capcom", "Fansub", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure"] # Add more subteam here
+ignore = ["Neatsubs", "Capcom", "Fansub", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure", "Episode"] # Add more subteam here
 extension = ["mp4", "mkv", "avi"]
+toLower = []
 yesAll = False
 noAll = False
 new = []
@@ -28,6 +29,8 @@ for arg in sys.argv[1:]:
     else:
         arg = list(filter(None, arg.lower().title().replace('.', ' ').replace('_', ' ').replace('-', ' ').split(' ')))
         for string in arg:
+            if (len(string) <= 2) or (string in toLower):
+                string = string.lower()
             match = pattern.match(string)
             if (string.isdigit() and int(string) > 1900 and int(string) < 2100) or (string in ignore):
                 continue
