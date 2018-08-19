@@ -3,7 +3,7 @@ from pathlib import Path
 
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
 ignore = ["Neatsubs", "Capcom", "Fansub", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure", "Episode"] # Add more subteam here
-extension = ["mp4", "mkv", "avi"]
+extension = ["mp4", "mkv", "avi", "ass"]
 toLower = []
 yesAll = False
 noAll = False
@@ -28,8 +28,8 @@ for arg in sys.argv[1:]:
         continue
     else:
         arg = list(filter(None, arg.lower().title().replace('.', ' ').replace('_', ' ').replace('-', ' ').split(' ')))
-        for string in arg:
-            if (len(string) <= 2) or (string in toLower):
+        for idx, string in enumerate(arg):
+            if (idx != 0) and ((len(string) <= 2) or (string in toLower)):
                 string = string.lower()
             match = pattern.match(string)
             if (string.isdigit() and int(string) > 1900 and int(string) < 2100) or (string in ignore):
