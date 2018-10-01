@@ -4,6 +4,7 @@ from pathlib import Path
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
 ignore = ["Neatsubs", "Capcom", "Fansub", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure", "Episode"] # Add more subteam here
 extension = ["mp4", "mkv", "avi", "ass"]
+toRemove = ["Shin Sekai"]
 toLower = []
 yesAll = False
 noAll = False
@@ -13,6 +14,8 @@ pattern = re.compile("([s|S]\d+)?([e|E]|Ep)?\d+$")
 for arg in sys.argv[1:]:
     prev.append(arg)
     toSave = ""
+    for remove in toRemove:
+        arg = arg.replace(remove, "")
     if arg[0] == '[':
         delete = arg.find(']')
         arg = arg[delete+2:]
