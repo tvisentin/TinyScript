@@ -4,7 +4,7 @@ from pathlib import Path
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
 ignore = ["Neatsubs", "Capcom", "Fansub", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure", "Episode", "Dcs"] # Add more subteam here
 extension = ["mp4", "mkv", "avi", "ass"]
-toExcept = ["100", "104", "911"]
+toExcept = ["100", "104", "911", "1983"]
 toRemove = ["Shin Sekai"]
 toLower = []
 yesAll = False
