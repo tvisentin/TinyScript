@@ -36,7 +36,7 @@ for arg in sys.argv[1:]:
             if (idx != 0) and ((len(string) <= 2) or (string in toLower)):
                 string = string.lower()
             match = pattern.match(string)
-            if (string in ignore):
+            if (string in ignore) or (string.isdigit() and int(string) > 1900 and int(string) < 2100):
                 continue
             elif string in toExcept and (string == arg[0] or string == arg[1]):
                 toSave += string + ' '
