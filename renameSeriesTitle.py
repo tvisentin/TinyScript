@@ -4,7 +4,7 @@ from pathlib import Path
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
 ignore = ["Neatsubs", "Capcom", "Fansub", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure", "Episode", "Dcs"] # Add more subteam here
 extension = ["mp4", "mkv", "avi", "ass"]
-toExcept = ["100", "104", "911", "1983"]
+toExcept = ["100", "104", "911", "1983", "19"]
 toRemove = ["Shin Sekai"]
 toLower = []
 yesAll = False
@@ -32,13 +32,19 @@ for arg in sys.argv[1:]:
         continue
     else:
         arg = list(filter(None, arg.lower().title().replace('.', ' ').replace('_', ' ').replace('-', ' ').split(' ')))
+        if arg[0] == '9' and arg[1] == '1' and arg[2] == '1':
+            arg[0].replace('9', '911')
+            del arg[2]
+            del arg[1]
+            del arg[0]
+            arg.insert(0, "911")
         for idx, string in enumerate(arg):
             if (idx != 0) and ((len(string) <= 2) or (string in toLower)):
                 string = string.lower()
             match = pattern.match(string)
             if (string in ignore) or (string.isdigit() and int(string) > 1900 and int(string) < 2100):
                 continue
-            elif string in toExcept and (string == arg[0] or string == arg[1]):
+            elif string in toExcept and (string == arg[0] or string == arg[1] or string == arg[2]):
                 toSave += string + ' '
             elif match and string != arg[0]:
                 string.upper()
@@ -76,8 +82,9 @@ while i < len(new):
         print ("Files aren't changed")
         exit(1)
     else:
-        new.pop()
-        prev.pop()
+        del new[i]
+        del prev[i]
+        i -= 1
         print ("File isn't changed")
     i += 1
 
