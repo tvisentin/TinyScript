@@ -1,4 +1,4 @@
-import sys, re, os, shutil
+import sys, re, os, shutil, subprocess
 from pathlib import Path
 
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
@@ -7,6 +7,7 @@ extension = ["mp4", "mkv", "avi", "ass"]
 toExcept = ["100", "104", "911", "1983", "19"]
 toRemove = ["Shin Sekai"]
 toLower = []
+renameAndSend = False
 yesAll = False
 noAll = False
 new = []
@@ -69,7 +70,9 @@ while i < len(new):
     print ("New : " + (new[i]))
     if yesAll != True and noAll != True:
         char = input("$> ")
-    if char == 'Y':
+    if char == 'Y' or char == '1':
+        if char == '1':
+            renameAndSend = True
         yesAll = True
         os.rename(prev[i], new[i])
         print ("Files are changed")
@@ -96,8 +99,11 @@ print ("0 -> Don't move")
 for idx, folder in enumerate(pathToMove, start=1):
     print (str(idx) + " -> " + folder)
 print ("Take the number corresponding to the right folder.")
-idx = input("$> ")
-if idx.isdigit() and int(idx) <= int(len(pathToMove)) and int(idx) > 0:
+if renameAndSend == True:
+    idx = 1
+else:
+    idx = input("$> ")
+if renameAndSend == True or (idx.isdigit() and int(idx) <= int(len(pathToMove)) and int(idx) > 0):
     for toMove in new:
         myFile = Path(toMove)
         if myFile.is_file():
@@ -111,3 +117,6 @@ else:
         print ("File remain ! :)")
     else:
         print ("Files remain ! :)")
+if renameAndSend == True:
+    subprocess.Popen(["open", pathToMove[0]])
+    subprocess.call(['osascript', '-e', 'tell application "iTerm" to quit'])
