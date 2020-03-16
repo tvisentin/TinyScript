@@ -4,8 +4,8 @@ from pathlib import Path
 pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolitan/Movies/Lilly/"]
 ignore = ["Neatsubs", "Capcom", "Fansub", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure", "Episode", "Dcs"] # Add more subteam here
 extension = ["mp4", "mkv", "avi", "ass"]
-toExcept = ["100", "104", "911", "1983", "19"]
-toRemove = ["Shin Sekai", "StreamAnime", "Final Series"]
+toExcept = ["911"]
+toRemove = ["Shin Sekai", "StreamAnime", "Final Series", "Sekai Raws"]
 toLower = []
 renameAndSend = False
 yesAll = False
@@ -34,11 +34,18 @@ for arg in sys.argv[1:]:
     else:
         arg = list(filter(None, arg.lower().title().replace('.', ' ').replace('_', ' ').replace('-', ' ').split(' ')))
         if arg[0] == '9' and arg[1] == '1' and arg[2] == '1':
-            arg[0].replace('9', '911')
             del arg[2]
             del arg[1]
             del arg[0]
             arg.insert(0, "911")
+        if arg[0] == 'Avenue' and arg[1] == '5':
+            del arg[1]
+            del arg[0]
+            arg.insert(0, "Avenue 5")
+        if arg[0] == 'Room' and arg[1] == '104':
+            del arg[1]
+            del arg[0]
+            arg.insert(0, "Room 104")
         for idx, string in enumerate(arg):
             if (idx != 0) and ((len(string) <= 2) or (string in toLower)):
                 string = string.lower()
@@ -61,11 +68,15 @@ if not new:
 if len(new) > 1:
     print("----- All files -----")
     for string in new:
+        if string.find('.') == -1 :
+            string = string[0:len(string) - 5] + "." + string[len(string) - 4:].lower()
         print (string)
     print("----- --------- -----")
 print ("If you want to change type [y]/[n]/[Y] (Y/N will change every file): ")
 i = 0
 while i < len(new):
+    if new[i].find('.') == -1 :
+        new[i] = new[i][:len(new[i]) - 5] + "." + new[i][len(new[i]) - 4:].lower()
     print ("Prev: " + (prev[i]))
     print ("New : " + (new[i]))
     if yesAll != True and noAll != True:
