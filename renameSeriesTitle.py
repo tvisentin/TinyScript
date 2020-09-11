@@ -5,14 +5,14 @@ pathToMove = ["/Users/Transmetropolitan/Movies/Thomas/", "/Users/Transmetropolit
 ignore = ["Neatsubs", "Capcom", "Fansub", "Definitelynotme", "Godotaku", "Despair", "Paradise", "Nofun", "Marvels", "Tyrannosaure", "Episode", "Dcs"] # Add more subteam here
 extension = ["mp4", "mkv", "avi", "ass"]
 toExcept = ["911"]
-toRemove = ["Shin Sekai", "StreamAnime", "Final Series", "Sekai Raws"]
+toRemove = ["Shin Sekai", "StreamAnime", "Final Series", "Sekai Raws", "2nd", "Fan-Kai"]
 toLower = []
 renameAndSend = False
 yesAll = False
 noAll = False
 new = []
 prev = []
-pattern = re.compile("([s|S]\d+)?([e|E]|Ep)?\d+$")
+pattern = re.compile("([s|S]?\d+)?([e|E]|Ep|X)?\d+$")
 for arg in sys.argv[1:]:
     prev.append(arg)
     toSave = ""
@@ -38,14 +38,14 @@ for arg in sys.argv[1:]:
             del arg[1]
             del arg[0]
             arg.insert(0, "911")
-        if arg[0] == 'Avenue' and arg[1] == '5':
-            del arg[1]
-            del arg[0]
-            arg.insert(0, "Avenue 5")
         if arg[0] == 'Room' and arg[1] == '104':
             del arg[1]
             del arg[0]
             arg.insert(0, "Room 104")
+        if arg[0] == 'Station' and arg[1] == '19':
+            del arg[1]
+            del arg[0]
+            arg.insert(0, "Station 19")
         for idx, string in enumerate(arg):
             if (idx != 0) and ((len(string) <= 2) or (string in toLower)):
                 string = string.lower()
@@ -57,6 +57,9 @@ for arg in sys.argv[1:]:
             elif match and string != arg[0]:
                 string.upper()
                 toSave += "- " + string + "." + arg[-1].lower()
+                break
+            elif string == arg[-1]:
+                toSave += "." + arg[-1].lower()
                 break
             else:
                 toSave += string + ' '
